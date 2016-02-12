@@ -95,27 +95,25 @@ public class MySqlDBStrategy implements DBStrategy {
      * Make sure you open and close connection when using this method.
      *
      * @param tableName
-     * @param columnName
-     * @param keyValue
-     * @return
+     * @param primarykeyName
+     * @param primaryKeyValue
+     * @return records deleted
      * @throws SQLException
      */
     @Override
-    public int deleteRecordbyID(String tableName, String columnName, Object keyValue) throws SQLException {
-
+    public int deleteRecordbyPrimaryKey(String tableName, String primarykeyName, Object primaryKeyValue) throws SQLException {
         int recordsDeleted = 0;
         PreparedStatement pstmt = null;
-
         String sql2 = null;
 
-        if (keyValue instanceof String) {
-            sql2 = "= '" + keyValue + "'";
+        if (primaryKeyValue instanceof String) {
+            sql2 = "= '" + primaryKeyValue + "'";
         } else {
-            sql2 = "=" + keyValue;
+            sql2 = "=" + primaryKeyValue;
         }
-        final String sql = "Delete FROM " + tableName + " WHERE " + columnName + sql2;
-        pstmt = conn.prepareStatement(sql);
+        final String sql = "Delete FROM " + tableName + " WHERE " + primarykeyName + sql2;
 
+        pstmt = conn.prepareStatement(sql);
         recordsDeleted = pstmt.executeUpdate(sql);
 
         return recordsDeleted;
@@ -128,6 +126,8 @@ public class MySqlDBStrategy implements DBStrategy {
         List<Map<String, Object>> rawData = db.findAllRecords("author", 0);
 
         //int del = db.deleteRecordbyID("author","author_id",3);
+        //works :)
+        
         db.closeConnection();
 
         System.out.println(rawData);

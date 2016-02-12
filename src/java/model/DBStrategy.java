@@ -23,6 +23,6 @@ public interface DBStrategy {
 
     public abstract List<Map<String, Object>> findAllRecords(String tableName, int maxRecords) throws SQLException;
     
-    public abstract int deleteRecordbyID(String tableName, String columnName, Object keyValue) throws SQLException;
+    public abstract int deleteRecordbyPrimaryKey(String tableName, String primarykeyName, Object primaryKeyValue) throws SQLException;
     
 }
